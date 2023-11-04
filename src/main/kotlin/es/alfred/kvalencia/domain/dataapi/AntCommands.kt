@@ -11,5 +11,7 @@ interface AntCommands {
 
     fun execAntGitCommand(antTaskName: String): AntResult;
 
+    fun execAntNodeCommands(antTaskName: String): AntResult;
+
     suspend fun execTest(input: String): AntResult
 }

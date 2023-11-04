@@ -25,7 +25,7 @@ class AntCommandsImpl : AntCommands {
             .waitFor()
 
 
-        return AntResult("Ant Task launched")
+        return AntResult("Ant Task Git launched")
 
         /* Alternative way
         val command: List<String> = "cmd /c start ant $antTaskName".split(" ")
@@ -36,9 +36,20 @@ class AntCommandsImpl : AntCommands {
         */
     }
 
+    override fun execAntNodeCommands(antTaskName: String): AntResult {
+
+        ProcessBuilder("cmd /C ant $antTaskName".split(" "))
+            .redirectOutput(ProcessBuilder.Redirect.INHERIT)
+            .start()
+            .waitFor()
+
+
+        return AntResult("Ant Task Node launched")
+    }
+
     override suspend fun execTest(input: String): AntResult {
 
-            for (i in 1..1000) {
+            for (i in 1..1000000) {
                 println("$input : $i")
 
             }

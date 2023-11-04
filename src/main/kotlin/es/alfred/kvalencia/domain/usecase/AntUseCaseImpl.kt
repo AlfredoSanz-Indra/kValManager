@@ -23,8 +23,26 @@ class AntUseCaseImpl: AntUseCase {
         println("\"AntCommand - gitPullLibraries  result=${r.result}")
     }
 
+    override suspend fun gitPullList(microFs: List<String>) {
+        //val r: AntResult = this.antCommand.execAntNodeCommands("run-$microF")
+        //println("\"AntCommand - nodeRunLauncher  result=${r.result}")
+        println("executin Pull for microFrontales $microFs")
+    }
+
+    override suspend fun nodeRunMicroF(microF: String) {
+        val r: AntResult = this.antCommand.execAntNodeCommands("run-$microF")
+        println("\"AntCommand - nodeRun $microF - result=${r.result}")
+    }
+
     override suspend fun coroutineTest(input: String) {
         val r: AntResult = this.antCommand.execTest(input)
         println("\"No command - test  result=${r.result}")
+    }
+
+    override suspend fun coroutineTestReturn(input: String): AntResult {
+        val r: AntResult = this.antCommand.execTest(input)
+        println("\"No command - test  result=${r.result}")
+
+        return r
     }
 }
