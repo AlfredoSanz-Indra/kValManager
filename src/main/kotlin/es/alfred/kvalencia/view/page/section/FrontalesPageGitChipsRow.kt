@@ -54,7 +54,7 @@ class FrontalesPageGitChipsRow {
             selected = selected,
             onClick = {
                 selected = !selected
-                chipsSelected[item.name] = selected
+                chipsSelected[item.task] = selected
             },
             label = { Text(item.label) },
             modifier = Modifier,

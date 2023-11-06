@@ -62,11 +62,8 @@ class FrontalesPageGitChipsActionButtonsRow {
             onClick = {
                 coroutineScope.launch {
                     val defer = async(Dispatchers.IO) {
-                        println("**chipsSelected: $chipsSelected")
                         val chips = chipsSelected.filter { it -> it.value }
-                        println("**chips: $chips")
                         val chipsSelectedList = chips.keys.toList()
-                        println("**chipsSelected: $chipsSelectedList")
                         antUseCase.gitPullList(chipsSelectedList)
                     }
                     defer.await()

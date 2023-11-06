@@ -31,16 +31,51 @@ class FrontalesPageGitPullButtonsRow {
     }
 
     @Composable
+    private fun getBranchButtonsColour(): ButtonColors {
+        val result = ButtonDefaults.outlinedButtonColors(
+            backgroundColor = Color(0xFF849601),
+            contentColor = Color(0xFFF5F5F5),
+            disabledContentColor = Color(0xFF666699))
+
+        return result
+    }
+
+    @Composable
     fun gitpullsButtonRow() {
         Row(Modifier.background(color = Color.White).width(800.dp),
             horizontalArrangement = Arrangement.Start,
             verticalAlignment = Alignment.CenterVertically
         ) {
             Spacer(Modifier.width(20.dp))
+            gitBranchButton()
+
+            Spacer(Modifier.width(20.dp))
             gitpullallButton()
 
             Spacer(Modifier.width(20.dp))
             gitpulllibrariesButton()
+        }
+    }
+
+
+    @Composable
+    private fun gitBranchButton() {
+
+        val coroutineScope = rememberCoroutineScope()
+
+        OutlinedButton(modifier = Modifier.width(200.dp),
+            colors = getBranchButtonsColour(),
+            onClick = {
+                coroutineScope.launch {
+                    val defer = async(Dispatchers.IO) {
+                        antUseCase.gitBranch()
+                    }
+                    defer.await()
+                }
+            }
+        )
+        {
+            Text("Git Branch")
         }
     }
 

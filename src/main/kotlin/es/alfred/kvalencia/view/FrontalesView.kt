@@ -36,7 +36,7 @@ class FrontalesView : IView {
     }
 
     private fun initGlobal() {
-        TheResources.getProjects().projects.forEach { it -> chipsSelected[it.name] = false }
+        TheResources.getProjects().projects.forEach { it -> chipsSelected[it.task] = false }
     }
 
     @Preview
