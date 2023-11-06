@@ -1,4 +1,4 @@
-package es.alfred.kvalencia.view
+package es.alfred.kvalencia.view.page
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*

@@ -12,6 +12,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import es.alfred.kvalencia.core.Constants
 import es.alfred.kvalencia.core.resources.TheResources
+import es.alfred.kvalencia.view.page.FrontalesPageGit
+import es.alfred.kvalencia.view.page.FrontalesPageNode
+import es.alfred.kvalencia.view.page.FrontalesPageTests
+import es.alfred.kvalencia.view.page.section.FrontalesPageMainButtons
 
 
 /**

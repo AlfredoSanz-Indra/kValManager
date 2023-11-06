@@ -1,4 +1,4 @@
-package es.alfred.kvalencia.view
+package es.alfred.kvalencia.view.page.section
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -16,73 +16,98 @@ import kotlinx.coroutines.*
  * @author Alfredo Sanz
  * @time 2023
  */
-class FrontalesPageGitPullButtonsRow {
+class FrontalesPageNodeRun01Row {
 
     private val antUseCase: AntUseCase = UseCaseFactory.getAntUseCase()
 
     @Composable
-    private fun getGitpullButtonsColour(): ButtonColors {
-        val result = ButtonDefaults.outlinedButtonColors(
-            backgroundColor = Color(0xFF7BB661),
+    private fun getNodeButtonsColour(): ButtonColors {
+        return ButtonDefaults.outlinedButtonColors(
+            backgroundColor = Color(0xFF336699),
             contentColor = Color(0xFFF5F5F5),
-            disabledContentColor = Color(0xFF666699))
-
-        return result
+            disabledContentColor = Color(0XFFe83151)
+        )
     }
 
     @Composable
-    fun gitpullsButtonRow() {
-        Row(Modifier.background(color = Color.White).width(800.dp),
+    fun getNodeRunRow01() {
+
+        Row(
+            Modifier.background(color = Color.White).width(800.dp),
             horizontalArrangement = Arrangement.Start,
             verticalAlignment = Alignment.CenterVertically
         ) {
             Spacer(Modifier.width(20.dp))
-            gitpullallButton()
+            buttonRunLauncher()
 
             Spacer(Modifier.width(20.dp))
-            gitpulllibrariesButton()
+            buttonRunDashboard()
+
+            Spacer(Modifier.width(20.dp))
+            buttonRunProcess()
         }
     }
 
     @Composable
-    private fun gitpulllibrariesButton() {
+    private fun buttonRunLauncher() {
 
         val coroutineScope = rememberCoroutineScope()
 
         OutlinedButton(modifier = Modifier.width(200.dp),
-            colors = getGitpullButtonsColour(),
+            colors = getNodeButtonsColour(),
             onClick = {
                 coroutineScope.launch {
                     val defer = async(Dispatchers.IO) {
-                        antUseCase.gitPullLibraries()
+                        antUseCase.nodeRunMicroF("launcher")
                     }
                     defer.await()
                 }
             }
         )
         {
-            Text("Git pull Libraries")
+            Text("node Run Launcher")
         }
     }
 
     @Composable
-    private fun gitpullallButton() {
+    private fun buttonRunDashboard() {
 
         val coroutineScope = rememberCoroutineScope()
 
-        OutlinedButton( modifier = Modifier.width(200.dp),
-            colors =  getGitpullButtonsColour(),
+        OutlinedButton(modifier = Modifier.width(200.dp),
+            colors = getNodeButtonsColour(),
             onClick = {
                 coroutineScope.launch {
                     val defer = async(Dispatchers.IO) {
-                        antUseCase.gitPullAll()
+                        antUseCase.nodeRunMicroF("dashboard")
                     }
                     defer.await()
                 }
             }
         )
         {
-            Text("Git pull All")
+            Text("node Run Dashboard")
+        }
+    }
+
+    @Composable
+    fun buttonRunProcess() {
+
+        val coroutineScope = rememberCoroutineScope()
+
+        OutlinedButton(modifier = Modifier.width(200.dp),
+            colors = getNodeButtonsColour(),
+            onClick = {
+                coroutineScope.launch {
+                    val defer = async(Dispatchers.IO) {
+                        antUseCase.nodeRunMicroF("process")
+                    }
+                    defer.await()
+                }
+            }
+        )
+        {
+            Text("node Run Process")
         }
     }
 }
