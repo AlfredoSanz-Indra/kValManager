@@ -49,6 +49,15 @@ class AntUseCaseImpl: AntUseCase {
         println("\"executed Node Run for microFrontales ($microFs)")
     }
 
+    override suspend fun nodeCopyLib(copyLib: String, microFs: List<String>) {
+        microFs.forEach { it ->
+            val anttask: String = "copylib-$copyLib-$it"
+            val r: AntResult = this.antCommand.execAntNodeCommands(anttask)
+            println("\"AntCommand - $anttask - result=${r.result}")
+        }
+        println("\"Executed Node copyLib $copyLib for libraries ($microFs)")
+    }
+
     override suspend fun coroutineTest(input: String) {
         val r: AntResult = this.antCommand.execTest(input)
         println("\"No command - test  result=${r.result}")

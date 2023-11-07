@@ -30,6 +30,15 @@ class FrontalesPageNodeRun01Row {
     }
 
     @Composable
+    private fun getCopylibButtonsColour(): ButtonColors {
+        return ButtonDefaults.outlinedButtonColors(
+            backgroundColor = Color(0xFF361039),
+            contentColor = Color(0xFFF5F5F5),
+            disabledContentColor = Color(0XFFe83151)
+        )
+    }
+
+    @Composable
     fun getNodeRunRow01() {
 
         Row(
@@ -39,6 +48,12 @@ class FrontalesPageNodeRun01Row {
         ) {
             Spacer(Modifier.width(20.dp))
             buttonRunLauncher()
+
+            Spacer(Modifier.width(20.dp))
+            nodeCopyLibStoreActionButton()
+
+            Spacer(Modifier.width(20.dp))
+            nodeCopyLibCoreActionButton()
         }
     }
 
@@ -60,6 +75,48 @@ class FrontalesPageNodeRun01Row {
         )
         {
             Text("node Run Launcher")
+        }
+    }
+
+    @Composable
+    private fun nodeCopyLibStoreActionButton() {
+
+        val coroutineScope = rememberCoroutineScope()
+
+        OutlinedButton(modifier = Modifier.width(200.dp),
+            colors = getCopylibButtonsColour(),
+            onClick = {
+                coroutineScope.launch {
+                    val defer = async(Dispatchers.IO) {
+                        antUseCase.nodeCopyLib("store", mutableListOf("justcv-libraries","pltflibraries"))
+                    }
+                    defer.await()
+                }
+            }
+        )
+        {
+            Text("Copylib Store")
+        }
+    }
+
+    @Composable
+    private fun nodeCopyLibCoreActionButton() {
+
+        val coroutineScope = rememberCoroutineScope()
+
+        OutlinedButton(modifier = Modifier.width(200.dp),
+            colors = getCopylibButtonsColour(),
+            onClick = {
+                coroutineScope.launch {
+                    val defer = async(Dispatchers.IO) {
+                        antUseCase.nodeCopyLib("core", mutableListOf("justcv-libraries","pltflibraries"))
+                    }
+                    defer.await()
+                }
+            }
+        )
+        {
+            Text("Copylib Core")
         }
     }
 }
