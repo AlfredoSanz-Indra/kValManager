@@ -11,5 +11,6 @@ import kotlinx.serialization.Serializable
 data class Project(
     val name: String,
     val label: String,
-    val task: String
+    val task: String,
+    val runnable: Boolean
     )

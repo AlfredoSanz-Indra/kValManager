@@ -41,6 +41,14 @@ class AntUseCaseImpl: AntUseCase {
         println("\"AntCommand - nodeRun $microF - result=${r.result}")
     }
 
+    override suspend fun nodeRunMicroFList(microFs: List<String>) {
+        microFs.forEach { it ->
+            var r: AntResult = this.antCommand.execAntNodeCommands("run-$it")
+            println("\"AntCommand - nodeRun - result=${r.result}")
+        }
+        println("\"executed Node Run for microFrontales ($microFs)")
+    }
+
     override suspend fun coroutineTest(input: String) {
         val r: AntResult = this.antCommand.execTest(input)
         println("\"No command - test  result=${r.result}")

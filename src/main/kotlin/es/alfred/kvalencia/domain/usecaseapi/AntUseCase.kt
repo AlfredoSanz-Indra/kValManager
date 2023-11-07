@@ -17,6 +17,7 @@ interface AntUseCase {
     suspend fun gitPullList(microFs: List<String>);
 
     suspend fun nodeRunMicroF(microF: String)
+    suspend fun nodeRunMicroFList(microFs: List<String>)
 
     suspend fun coroutineTest(input: String)
 

@@ -29,14 +29,20 @@ class FrontalesView : IView {
     private val frontPageNode: FrontalesPageNode = FrontalesPageNode()
     private val frontPageTests: FrontalesPageTests = FrontalesPageTests()
 
-    var chipsSelected: MutableMap<String, Boolean> = mutableMapOf()
+    var chipsGitSelected: MutableMap<String, Boolean> = mutableMapOf()
+    var chipsNodeSelected: MutableMap<String, Boolean> = mutableMapOf()
 
     constructor() {
         initGlobal()
     }
 
     private fun initGlobal() {
-        TheResources.getProjects().projects.forEach { it -> chipsSelected[it.task] = false }
+        TheResources.getProjects().projects
+            .forEach { it -> chipsGitSelected[it.task] = false }
+
+        TheResources.getProjects().projects
+            .filter { it -> it.runnable }
+            .forEach { it -> chipsNodeSelected[it.task] = false }
     }
 
     @Preview
@@ -64,11 +70,11 @@ class FrontalesView : IView {
                 }
 
                 if (Constants.theviewGit == theview) {
-                    frontPageGit.createPage(chipsSelected)
+                    frontPageGit.createPage(chipsGitSelected)
                 }
 
                 if (Constants.theviewNode == theview) {
-                    frontPageNode.createPage ()
+                    frontPageNode.createPage(chipsNodeSelected)
                 }
 
                 if (Constants.theviewTests == theview) {
