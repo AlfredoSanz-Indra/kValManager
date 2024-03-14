@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "com.alfred"
-version = "1.0.8"
+version = "1.0.9"
 
 repositories {
     mavenCentral()
@@ -53,7 +53,7 @@ compose.desktop {
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "kvalencia"
-            packageVersion = "1.0.8"
+            packageVersion = "1.0.9"
         }
     }
 }
