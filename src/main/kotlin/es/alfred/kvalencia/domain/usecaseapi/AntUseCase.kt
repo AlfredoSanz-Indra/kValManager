@@ -8,6 +8,8 @@ import es.alfred.kvalencia.domain.model.AntResult
  */
 interface AntUseCase {
 
+    suspend fun gitCheckout(microFs: List<String>, destBranch: String)
+
     suspend fun gitPullAll();
 
     suspend fun gitPullLibraries();

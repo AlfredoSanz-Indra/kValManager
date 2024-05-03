@@ -17,6 +17,18 @@ import kotlin.coroutines.CoroutineContext
  */
 class AntCommandsImpl : AntCommands {
 
+    override fun execAntGitCheckout(antTaskName: String, destBranch: String, microID: String): AntResult {
+
+        val command: List<String> = "cmd /C start ant -Dcheckout-to-branch=$destBranch -Dproject-prop=$microID $antTaskName".split(" ")
+        ProcessBuilder(command)
+            .redirectOutput(ProcessBuilder.Redirect.INHERIT)
+            .start()
+            .waitFor()
+
+        return AntResult("Ant Task Git checkout command launched")
+
+    }
+
     override fun execAntGitCommand(antTaskName: String): AntResult {
 
         ProcessBuilder("cmd /C start ant $antTaskName".split(" "))

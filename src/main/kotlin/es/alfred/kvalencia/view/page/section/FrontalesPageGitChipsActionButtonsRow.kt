@@ -40,6 +40,16 @@ class FrontalesPageGitChipsActionButtonsRow {
     }
 
     @Composable
+    private fun getGitCheckoutButtonsColour(): ButtonColors {
+        val result = ButtonDefaults.outlinedButtonColors(
+            backgroundColor = Color(0xFF145191),
+            contentColor = Color(0xFFF5F5F5),
+            disabledContentColor = Color(0xFF66DD99))
+
+        return result
+    }
+
+    @Composable
     fun gitChipsActionsRow(chipsSelected: MutableMap<String, Boolean>) {
 
         Row(
@@ -72,6 +82,44 @@ class FrontalesPageGitChipsActionButtonsRow {
         )
         {
             Text("Git pull projects")
+        }
+
+        Spacer(Modifier.width(20.dp))
+
+        OutlinedButton(modifier = Modifier.width(220.dp),
+            colors = getGitCheckoutButtonsColour(),
+            onClick = {
+                coroutineScope.launch {
+                    val defer = async(Dispatchers.IO) {
+                        val chips = chipsSelected.filter { it -> it.value }
+                        val chipsSelectedList = chips.keys.toList()
+                        antUseCase.gitCheckout(chipsSelectedList, "integration")
+                    }
+                    defer.await()
+                }
+            }
+        )
+        {
+            Text("Git Checkout Integration")
+        }
+
+        Spacer(Modifier.width(20.dp))
+
+        OutlinedButton(modifier = Modifier.width(220.dp),
+            colors = getGitCheckoutButtonsColour(),
+            onClick = {
+                coroutineScope.launch {
+                    val defer = async(Dispatchers.IO) {
+                        val chips = chipsSelected.filter { it -> it.value }
+                        val chipsSelectedList = chips.keys.toList()
+                        antUseCase.gitCheckout(chipsSelectedList, "develop")
+                    }
+                    defer.await()
+                }
+            }
+        )
+        {
+            Text("Git Checkout Develop")
         }
     }
 }

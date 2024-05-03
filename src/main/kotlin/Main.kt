@@ -40,7 +40,7 @@ fun main() = application {
     var action by remember { mutableStateOf(actionFrontales) }
 
     Window(onCloseRequest = ::exitApplication,
-        title = "Valencia Manager 1.0.9",
+        title = "Valencia Manager 1.0.10",
         state = rememberWindowState(width = 850.dp, height = 710.dp)
     ) {
         MenuBar {
