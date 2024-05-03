@@ -13,6 +13,13 @@ class AntUseCaseImpl: AntUseCase {
 
     private val antCommand: AntCommands = DataFactory.getAntCommands()
 
+    override suspend fun gitCheckout(microFs: List<String>, destBranch: String) {
+        microFs.forEach { it ->
+            val r: AntResult = this.antCommand.execAntGitCheckout("git-checkout", destBranch, it)
+            println("\"AntCommand - gitCheckout  result=${r.result}")
+        }
+    }
+
     override suspend fun gitPullAll() {
         val r: AntResult = this.antCommand.execAntGitCommand("git-pull-all")
         println("\"AntCommand - gitPullAll  result=${r.result}")

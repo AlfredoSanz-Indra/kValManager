@@ -9,6 +9,8 @@ import es.alfred.kvalencia.domain.model.AntResult
  */
 interface AntCommands {
 
+    fun execAntGitCheckout(antTaskName: String, destBranch: String, microID: String): AntResult
+
     fun execAntGitCommand(antTaskName: String): AntResult;
 
     fun execAntNodeCommands(antTaskName: String): AntResult;
