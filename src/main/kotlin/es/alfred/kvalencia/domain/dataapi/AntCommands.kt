@@ -11,7 +11,11 @@ interface AntCommands {
 
     fun execAntGitCheckout(antTaskName: String, destBranch: String, microID: String): AntResult
 
+    fun execAntGitCommandSmart(antTaskName: String,  microID: String): AntResult
+
     fun execAntGitCommand(antTaskName: String): AntResult;
+
+    fun execAntNodeCommandsSmart(antTaskName: String,  microID: String): AntResult
 
     fun execAntNodeCommands(antTaskName: String): AntResult;
 

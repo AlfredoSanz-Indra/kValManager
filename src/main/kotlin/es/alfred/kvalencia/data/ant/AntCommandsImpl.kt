@@ -1,14 +1,7 @@
 package es.alfred.kvalencia.data.ant
 
-import androidx.compose.runtime.rememberCoroutineScope
 import es.alfred.kvalencia.domain.dataapi.AntCommands
 import es.alfred.kvalencia.domain.model.AntResult
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import java.util.concurrent.CompletableFuture
-import kotlin.coroutines.CoroutineContext
 
 
 /**
@@ -19,14 +12,24 @@ class AntCommandsImpl : AntCommands {
 
     override fun execAntGitCheckout(antTaskName: String, destBranch: String, microID: String): AntResult {
 
-        val command: List<String> = "cmd /C start ant -Dcheckout-to-branch=$destBranch -Dproject-prop=$microID $antTaskName".split(" ")
+        val command: List<String> = "cmd /C start ant $antTaskName -Dcheckout-to-branch=$destBranch -Dproject-prop=$microID".split(" ")
         ProcessBuilder(command)
             .redirectOutput(ProcessBuilder.Redirect.INHERIT)
             .start()
             .waitFor()
 
-        return AntResult("Ant Task Git checkout command launched")
+        return AntResult("Ant Task smart Git checkout command launched")
+    }
 
+    override fun execAntGitCommandSmart(antTaskName: String,  microID: String): AntResult {
+
+        val command: List<String> = "cmd /C start ant $antTaskName -Dproject-prop=$microID".split(" ")
+        ProcessBuilder(command)
+            .redirectOutput(ProcessBuilder.Redirect.INHERIT)
+            .start()
+            .waitFor()
+
+        return AntResult("Ant Task smart Git launched")
     }
 
     override fun execAntGitCommand(antTaskName: String): AntResult {
@@ -35,7 +38,6 @@ class AntCommandsImpl : AntCommands {
             .redirectOutput(ProcessBuilder.Redirect.INHERIT)
             .start()
             .waitFor()
-
 
         return AntResult("Ant Task Git launched")
 
@@ -48,13 +50,23 @@ class AntCommandsImpl : AntCommands {
         */
     }
 
+    override fun execAntNodeCommandsSmart(antTaskName: String,  microID: String): AntResult {
+
+        val command: List<String> = "cmd /C start ant $antTaskName -Dproject-prop=$microID".split(" ")
+        ProcessBuilder(command)
+            .redirectOutput(ProcessBuilder.Redirect.INHERIT)
+            .start()
+            .waitFor()
+
+        return AntResult("Ant Task Node launched")
+    }
+
     override fun execAntNodeCommands(antTaskName: String): AntResult {
 
         ProcessBuilder("cmd /C ant $antTaskName".split(" "))
             .redirectOutput(ProcessBuilder.Redirect.INHERIT)
             .start()
             .waitFor()
-
 
         return AntResult("Ant Task Node launched")
     }
