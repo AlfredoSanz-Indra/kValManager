@@ -52,7 +52,7 @@ class AntCommandsImpl : AntCommands {
 
     override fun execAntNodeCommandsSmart(antTaskName: String,  microID: String): AntResult {
 
-        val command: List<String> = "cmd /C start ant $antTaskName -Dproject-prop=$microID".split(" ")
+        val command: List<String> = "cmd /C ant $antTaskName -Dproject-prop=$microID".split(" ")
         ProcessBuilder(command)
             .redirectOutput(ProcessBuilder.Redirect.INHERIT)
             .start()
