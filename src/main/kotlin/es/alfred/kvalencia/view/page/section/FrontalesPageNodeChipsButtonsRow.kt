@@ -91,7 +91,7 @@ class FrontalesPageNodeChipsButtonsRow {
                     val defer = async(Dispatchers.IO) {
                         val chips = chipsSelected.filter { it -> it.value }
                         val chipsSelectedList = chips.keys.toList()
-                        antUseCase.nodeRunMicroFList(chipsSelectedList)
+                        antUseCase.nodeRunTestMicroFList(chipsSelectedList)
                     }
                     defer.await()
                 }
