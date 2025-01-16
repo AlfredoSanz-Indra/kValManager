@@ -25,11 +25,6 @@ class AntUseCaseImpl: AntUseCase {
         println("\"AntCommand - gitPullAll  result=${r.result}")
     }
 
-    override suspend fun gitPullLibraries() {
-        val r: AntResult = this.antCommand.execAntGitCommand("git-pull-libraries")
-        println("\"AntCommand - gitPullLibraries  result=${r.result}")
-    }
-
     override suspend fun gitBranch() {
         val r: AntResult = this.antCommand.execAntGitCommand("git-branch")
         println("\"AntCommand - gitBranch  result=${r.result}")
@@ -56,13 +51,17 @@ class AntUseCaseImpl: AntUseCase {
         println("\"executed Node Run for microFrontales ($microFs)")
     }
 
-    override suspend fun nodeCopyLib(copyLib: String, microFs: List<String>) {
+    override suspend fun nodeRunTestMicroF(microF: String) {
+        var r: AntResult = this.antCommand.execAntNodeCommandsSmart("run-test", microF)
+        println("\"AntCommand - nodeRun $microF - result=${r.result}")
+    }
+
+    override suspend fun nodeRunTestMicroFList(microFs: List<String>) {
         microFs.forEach { it ->
-            val anttask = "copylib-smart-$copyLib"
-            var r: AntResult = this.antCommand.execAntNodeCommandsSmart(anttask, it)
-            println("\"AntCommand - $anttask - result=${r.result}")
+            var r: AntResult = this.antCommand.execAntNodeCommandsSmart("run-test", it)
+            println("\"AntCommand - nodeRun - result=${r.result}")
         }
-        println("\"Executed Node copyLib $copyLib for libraries ($microFs)")
+        println("\"executed Node Run for microFrontales ($microFs)")
     }
 
     override suspend fun coroutineTest(input: String) {

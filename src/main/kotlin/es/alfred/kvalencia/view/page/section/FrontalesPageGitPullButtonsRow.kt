@@ -51,9 +51,6 @@ class FrontalesPageGitPullButtonsRow {
 
             Spacer(Modifier.width(20.dp))
             gitpullallButton()
-
-            Spacer(Modifier.width(20.dp))
-            gitpulllibrariesButton()
         }
     }
 
@@ -76,27 +73,6 @@ class FrontalesPageGitPullButtonsRow {
         )
         {
             Text("Git Branch")
-        }
-    }
-
-    @Composable
-    private fun gitpulllibrariesButton() {
-
-        val coroutineScope = rememberCoroutineScope()
-
-        OutlinedButton(modifier = Modifier.width(200.dp),
-            colors = getGitpullButtonsColour(),
-            onClick = {
-                coroutineScope.launch {
-                    val defer = async(Dispatchers.IO) {
-                        antUseCase.gitPullLibraries()
-                    }
-                    defer.await()
-                }
-            }
-        )
-        {
-            Text("Git pull Libraries")
         }
     }
 

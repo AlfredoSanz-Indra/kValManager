@@ -12,8 +12,6 @@ interface AntUseCase {
 
     suspend fun gitPullAll();
 
-    suspend fun gitPullLibraries();
-
     suspend fun gitBranch();
 
     suspend fun gitPullList(microFs: List<String>);
@@ -22,7 +20,9 @@ interface AntUseCase {
 
     suspend fun nodeRunMicroFList(microFs: List<String>)
 
-    suspend fun nodeCopyLib(copyLib: String, microFs: List<String>)
+    suspend fun nodeRunTestMicroF(microF: String)
+
+    suspend fun nodeRunTestMicroFList(microFs: List<String>)
 
     suspend fun coroutineTest(input: String)
 

@@ -1,6 +1,7 @@
 package es.alfred.kvalencia.view.page
 
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -22,13 +23,13 @@ class FrontalesPageNode {
     @Composable
     fun createPage(chipsSelected: MutableMap<String, Boolean>) {
 
-        Spacer(Modifier.width(20.dp))
+        Spacer(Modifier.height(20.dp))
         frontNodepageRow01.getNodeRunRow01()
 
-        Spacer(Modifier.width(20.dp))
+        Spacer(Modifier.height(20.dp))
         frontNodepageChipsRow.nodeChipsRow(chipsSelected)
 
-        Spacer(Modifier.width(20.dp))
+        Spacer(Modifier.height(40.dp))
         frontNodepageChiposButtonsRow.nodeChipsActionsRow(chipsSelected)
     }
 }
