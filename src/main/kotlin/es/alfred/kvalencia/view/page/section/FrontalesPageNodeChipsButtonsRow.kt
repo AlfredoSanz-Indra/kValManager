@@ -30,9 +30,18 @@ class FrontalesPageNodeChipsButtonsRow {
     private val antUseCase: AntUseCase = UseCaseFactory.getAntUseCase()
 
     @Composable
-    private fun getNodeActionButtonsColour(): ButtonColors {
+    private fun getNodeRunActionButtonsColour(): ButtonColors {
         return ButtonDefaults.outlinedButtonColors(
-            backgroundColor = Color(0xFF339099),
+            backgroundColor = Color(0xFF331099),
+            contentColor = Color(0xFFF5F5F5),
+            disabledContentColor = Color(0XFFe83151)
+        )
+    }
+
+    @Composable
+    private fun getNodeTestActionButtonsColour(): ButtonColors {
+        return ButtonDefaults.outlinedButtonColors(
+            backgroundColor = Color(0xFF361039),
             contentColor = Color(0xFFF5F5F5),
             disabledContentColor = Color(0XFFe83151)
         )
@@ -57,7 +66,7 @@ class FrontalesPageNodeChipsButtonsRow {
         val coroutineScope = rememberCoroutineScope()
 
         OutlinedButton(modifier = Modifier.width(200.dp),
-            colors = getNodeActionButtonsColour(),
+            colors = getNodeRunActionButtonsColour(),
             onClick = {
                 coroutineScope.launch {
                     val defer = async(Dispatchers.IO) {
@@ -71,6 +80,25 @@ class FrontalesPageNodeChipsButtonsRow {
         )
         {
             Text("Node Run projects")
+        }
+
+        Spacer(Modifier.width(20.dp))
+
+        OutlinedButton(modifier = Modifier.width(200.dp),
+            colors = getNodeTestActionButtonsColour(),
+            onClick = {
+                coroutineScope.launch {
+                    val defer = async(Dispatchers.IO) {
+                        val chips = chipsSelected.filter { it -> it.value }
+                        val chipsSelectedList = chips.keys.toList()
+                        antUseCase.nodeRunMicroFList(chipsSelectedList)
+                    }
+                    defer.await()
+                }
+            }
+        )
+        {
+            Text("Node Test projects")
         }
     }
 }

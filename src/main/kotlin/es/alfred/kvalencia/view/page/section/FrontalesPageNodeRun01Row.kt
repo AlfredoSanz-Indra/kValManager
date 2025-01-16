@@ -21,24 +21,6 @@ class FrontalesPageNodeRun01Row {
     private val antUseCase: AntUseCase = UseCaseFactory.getAntUseCase()
 
     @Composable
-    private fun getNodeButtonsColour(): ButtonColors {
-        return ButtonDefaults.outlinedButtonColors(
-            backgroundColor = Color(0xFF331099),
-            contentColor = Color(0xFFF5F5F5),
-            disabledContentColor = Color(0XFFe83151)
-        )
-    }
-
-    @Composable
-    private fun getCopylibButtonsColour(): ButtonColors {
-        return ButtonDefaults.outlinedButtonColors(
-            backgroundColor = Color(0xFF361039),
-            contentColor = Color(0xFFF5F5F5),
-            disabledContentColor = Color(0XFFe83151)
-        )
-    }
-
-    @Composable
     fun getNodeRunRow01() {
 
         Row(
@@ -47,76 +29,6 @@ class FrontalesPageNodeRun01Row {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Spacer(Modifier.width(20.dp))
-            buttonRunLauncher()
-
-            Spacer(Modifier.width(20.dp))
-            nodeCopyLibStoreActionButton()
-
-            Spacer(Modifier.width(20.dp))
-            nodeCopyLibCoreActionButton()
-        }
-    }
-
-    @Composable
-    private fun buttonRunLauncher() {
-
-        val coroutineScope = rememberCoroutineScope()
-
-        OutlinedButton(modifier = Modifier.width(200.dp),
-            colors = getNodeButtonsColour(),
-            onClick = {
-                coroutineScope.launch {
-                    val defer = async(Dispatchers.IO) {
-                        antUseCase.nodeRunMicroF("launcher")
-                    }
-                    defer.await()
-                }
-            }
-        )
-        {
-            Text("node Run Launcher")
-        }
-    }
-
-    @Composable
-    private fun nodeCopyLibStoreActionButton() {
-
-        val coroutineScope = rememberCoroutineScope()
-
-        OutlinedButton(modifier = Modifier.width(200.dp),
-            colors = getCopylibButtonsColour(),
-            onClick = {
-                coroutineScope.launch {
-                    val defer = async(Dispatchers.IO) {
-                        antUseCase.nodeCopyLib("store", mutableListOf("justcv-libraries","pltflibraries"))
-                    }
-                    defer.await()
-                }
-            }
-        )
-        {
-            Text("Copylib Store")
-        }
-    }
-
-    @Composable
-    private fun nodeCopyLibCoreActionButton() {
-
-        val coroutineScope = rememberCoroutineScope()
-
-        OutlinedButton(modifier = Modifier.width(200.dp),
-            colors = getCopylibButtonsColour(),
-            onClick = {
-                coroutineScope.launch {
-                    val defer = async(Dispatchers.IO) {
-                        antUseCase.nodeCopyLib("core", mutableListOf("justcv-libraries","pltflibraries"))
-                    }
-                    defer.await()
-                }
-            }
-        )
-        {
-            Text("Copylib Core")
         }
     }
 }

@@ -31,22 +31,21 @@ class FrontalesPageGitChipsActionButtonsRow {
 
     @Composable
     private fun getGitActionButtonsColour(): ButtonColors {
-        val result = ButtonDefaults.outlinedButtonColors(
-            backgroundColor = Color(0xFF1AA161),
+       return ButtonDefaults.outlinedButtonColors(
+            backgroundColor = Color(0xFF331099),
             contentColor = Color(0xFFF5F5F5),
-            disabledContentColor = Color(0xFF66DD99))
+            disabledContentColor = Color(0XFFe83151)
+       )
 
-        return result
     }
 
     @Composable
     private fun getGitCheckoutButtonsColour(): ButtonColors {
-        val result = ButtonDefaults.outlinedButtonColors(
-            backgroundColor = Color(0xFF145191),
+        return ButtonDefaults.outlinedButtonColors(
+            backgroundColor = Color(0xFF361039),
             contentColor = Color(0xFFF5F5F5),
-            disabledContentColor = Color(0xFF66DD99))
-
-        return result
+            disabledContentColor = Color(0XFFe83151)
+        )
     }
 
     @Composable
@@ -93,14 +92,14 @@ class FrontalesPageGitChipsActionButtonsRow {
                     val defer = async(Dispatchers.IO) {
                         val chips = chipsSelected.filter { it -> it.value }
                         val chipsSelectedList = chips.keys.toList()
-                        antUseCase.gitCheckout(chipsSelectedList, "integration")
+                        antUseCase.gitCheckout(chipsSelectedList, "apis-integration")
                     }
                     defer.await()
                 }
             }
         )
         {
-            Text("Git Checkout Integration")
+            Text("Git Checkout integration")
         }
 
         Spacer(Modifier.width(20.dp))
