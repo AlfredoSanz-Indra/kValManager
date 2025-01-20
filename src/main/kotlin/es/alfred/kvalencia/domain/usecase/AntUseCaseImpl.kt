@@ -51,6 +51,11 @@ class AntUseCaseImpl: AntUseCase {
         println("\"executed Node Run for microFrontales ($microFs)")
     }
 
+    override suspend fun gitPushIntegration(destBranch: String) {
+        var r: AntResult = this.antCommand.execAntGitCommandSmartPush(destBranch)
+        println("\"AntCommand - git-push $destBranch - result=${r.result}")
+    }
+
     override suspend fun nodeRunTestMicroF(microF: String) {
         var r: AntResult = this.antCommand.execAntNodeCommandsSmart("run-test", microF)
         println("\"AntCommand - nodeRun $microF - result=${r.result}")

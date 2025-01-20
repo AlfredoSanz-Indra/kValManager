@@ -50,6 +50,15 @@ class AntCommandsImpl : AntCommands {
         */
     }
 
+    override fun execAntGitCommandSmartPush(destBranch: String): AntResult {
+        ProcessBuilder("cmd /C start ant git-push -Dbranch-prop=$destBranch".split(" "))
+            .redirectOutput(ProcessBuilder.Redirect.INHERIT)
+            .start()
+            .waitFor()
+
+        return AntResult("Ant Task Git Push launched")
+    }
+
     override fun execAntNodeCommandsSmart(antTaskName: String,  microID: String): AntResult {
 
         val command: List<String> = "cmd /C ant $antTaskName -Dproject-prop=$microID".split(" ")

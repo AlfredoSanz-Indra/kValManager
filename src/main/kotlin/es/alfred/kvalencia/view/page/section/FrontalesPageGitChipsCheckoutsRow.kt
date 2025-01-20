@@ -23,24 +23,14 @@ import kotlinx.coroutines.launch
 
 /**
  * @author Alfredo Sanz
- * @time 2023
+ * @time 2025
  */
-class FrontalesPageGitChipsActionButtonsRow {
+class FrontalesPageGitChipsCheckoutsRow {
 
     private val antUseCase: AntUseCase = UseCaseFactory.getAntUseCase()
 
     @Composable
-    private fun getGitActionButtonsColour(): ButtonColors {
-       return ButtonDefaults.outlinedButtonColors(
-            backgroundColor = Color(0xFF331099),
-            contentColor = Color(0xFFF5F5F5),
-            disabledContentColor = Color(0XFFe83151)
-       )
-
-    }
-
-    @Composable
-    private fun getGitActions2ButtonsColour(): ButtonColors {
+    private fun getGitCheckoutButtonsColour(): ButtonColors {
         return ButtonDefaults.outlinedButtonColors(
             backgroundColor = Color(0xFF361039),
             contentColor = Color(0xFFF5F5F5),
@@ -49,55 +39,56 @@ class FrontalesPageGitChipsActionButtonsRow {
     }
 
     @Composable
-    fun gitChipsActionsRow(chipsSelected: MutableMap<String, Boolean>) {
-
+    fun gitChipsCheckoutsRow(chipsSelected: MutableMap<String, Boolean>) {
         Row(
             Modifier.background(color = Color.White).width(800.dp),
             horizontalArrangement = Arrangement.Start,
             verticalAlignment = Alignment.CenterVertically
         ) {
             Spacer(Modifier.width(20.dp))
-            gitpullActionButton(chipsSelected)
+            gitCheckoutActionButtons(chipsSelected)
         }
+
     }
 
     @Composable
-    private fun gitpullActionButton(chipsSelected: MutableMap<String, Boolean>) {
-
+    fun gitCheckoutActionButtons(chipsSelected: MutableMap<String, Boolean>) {
         val coroutineScope = rememberCoroutineScope()
 
-        OutlinedButton(modifier = Modifier.width(200.dp),
-            colors = getGitActionButtonsColour(),
+        OutlinedButton(modifier = Modifier.width(220.dp),
+            colors = getGitCheckoutButtonsColour(),
             onClick = {
                 coroutineScope.launch {
                     val defer = async(Dispatchers.IO) {
                         val chips = chipsSelected.filter { it -> it.value }
                         val chipsSelectedList = chips.keys.toList()
-                        antUseCase.gitPullList(chipsSelectedList)
+                        antUseCase.gitCheckout(chipsSelectedList, "apis-integration")
                     }
                     defer.await()
                 }
             }
         )
         {
-            Text("Git pull projects")
+            Text("Git Checkout integration")
         }
 
         Spacer(Modifier.width(20.dp))
 
-        OutlinedButton(modifier = Modifier.width(280.dp),
-            colors = getGitActionButtonsColour(),
+        OutlinedButton(modifier = Modifier.width(220.dp),
+            colors = getGitCheckoutButtonsColour(),
             onClick = {
                 coroutineScope.launch {
                     val defer = async(Dispatchers.IO) {
-                        antUseCase.gitPushIntegration("feature/apis-integration")
+                        val chips = chipsSelected.filter { it -> it.value }
+                        val chipsSelectedList = chips.keys.toList()
+                        antUseCase.gitCheckout(chipsSelectedList, "develop")
                     }
                     defer.await()
                 }
             }
         )
         {
-            Text("Git push apis-integration")
+            Text("Git Checkout Develop")
         }
     }
 }

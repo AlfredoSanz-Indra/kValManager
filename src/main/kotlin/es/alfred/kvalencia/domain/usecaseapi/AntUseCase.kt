@@ -16,6 +16,8 @@ interface AntUseCase {
 
     suspend fun gitPullList(microFs: List<String>);
 
+    suspend fun gitPushIntegration(destBranch: String)
+
     suspend fun nodeRunMicroF(microF: String)
 
     suspend fun nodeRunMicroFList(microFs: List<String>)

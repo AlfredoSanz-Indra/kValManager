@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import es.alfred.kvalencia.view.page.section.FrontalesPageGitChipsActionButtonsRow
+import es.alfred.kvalencia.view.page.section.FrontalesPageGitChipsCheckoutsRow
 import es.alfred.kvalencia.view.page.section.FrontalesPageGitChipsRow
 import es.alfred.kvalencia.view.page.section.FrontalesPageGitPullButtonsRow
 
@@ -18,6 +19,7 @@ class FrontalesPageGit {
     private val frontpageGitPullButtonsRow: FrontalesPageGitPullButtonsRow = FrontalesPageGitPullButtonsRow();
     private val frontpageGitChipRow: FrontalesPageGitChipsRow = FrontalesPageGitChipsRow()
     private val frontpageGitChipActionButtons: FrontalesPageGitChipsActionButtonsRow = FrontalesPageGitChipsActionButtonsRow()
+    private val frontpageGitChipCheckoutsRow: FrontalesPageGitChipsCheckoutsRow = FrontalesPageGitChipsCheckoutsRow()
 
     @Composable
     fun createPage( chipsSelected: MutableMap<String, Boolean>) {
@@ -30,5 +32,8 @@ class FrontalesPageGit {
 
         Spacer(Modifier.height(20.dp))
         this.frontpageGitChipActionButtons.gitChipsActionsRow(chipsSelected)
+
+        Spacer(Modifier.height(20.dp))
+        this.frontpageGitChipCheckoutsRow.gitChipsCheckoutsRow(chipsSelected)
     }
 }
