@@ -62,7 +62,7 @@ class FrontalesPageGitChipsCheckoutsRow {
                     val defer = async(Dispatchers.IO) {
                         val chips = chipsSelected.filter { it -> it.value }
                         val chipsSelectedList = chips.keys.toList()
-                        antUseCase.gitCheckout(chipsSelectedList, "apis-integration")
+                        antUseCase.gitCheckout(chipsSelectedList, "feature/apis-integration")
                     }
                     defer.await()
                 }
