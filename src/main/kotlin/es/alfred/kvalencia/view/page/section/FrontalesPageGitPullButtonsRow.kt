@@ -2,7 +2,7 @@ package es.alfred.kvalencia.view.page.section
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,20 +23,28 @@ class FrontalesPageGitPullButtonsRow {
     @Composable
     private fun getGitpullButtonsColour(): ButtonColors {
         val result = ButtonDefaults.outlinedButtonColors(
-            backgroundColor = Color(0xFF7BB661),
+            containerColor = Color(0xFF336699),
             contentColor = Color(0xFFF5F5F5),
-            disabledContentColor = Color(0xFF666699))
-
+            disabledContentColor = Color(0XFFe83151),
+            disabledContainerColor = Color(0XFFe83151)
+            /*backgroundColor = Color(0xFF7BB661),
+            contentColor = Color(0xFFF5F5F5),
+            disabledContentColor = Color(0xFF666699))*/
+        )
         return result
     }
 
     @Composable
     private fun getBranchButtonsColour(): ButtonColors {
         val result = ButtonDefaults.outlinedButtonColors(
-            backgroundColor = Color(0xFF849601),
+            containerColor = Color(0xFF336699),
             contentColor = Color(0xFFF5F5F5),
-            disabledContentColor = Color(0xFF666699))
-
+            disabledContentColor = Color(0XFFe83151),
+            disabledContainerColor = Color(0XFFe83151)
+            /*backgroundColor = Color(0xFF849601),
+            contentColor = Color(0xFFF5F5F5),
+            disabledContentColor = Color(0xFF666699))*/
+        )
         return result
     }
 

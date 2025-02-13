@@ -5,10 +5,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.ButtonColors
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.OutlinedButton
-import androidx.compose.material.Text
+import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -32,18 +32,26 @@ class FrontalesPageNodeChipsButtonsRow {
     @Composable
     private fun getNodeRunActionButtonsColour(): ButtonColors {
         return ButtonDefaults.outlinedButtonColors(
-            backgroundColor = Color(0xFF331099),
+            containerColor = Color(0xFF336699),
             contentColor = Color(0xFFF5F5F5),
-            disabledContentColor = Color(0XFFe83151)
+            disabledContentColor = Color(0XFFe83151),
+            disabledContainerColor = Color(0XFFe83151)
+            /*backgroundColor = Color(0xFF331099),
+            contentColor = Color(0xFFF5F5F5),
+            disabledContentColor = Color(0XFFe83151)*/
         )
     }
 
     @Composable
     private fun getNodeTestActionButtonsColour(): ButtonColors {
         return ButtonDefaults.outlinedButtonColors(
-            backgroundColor = Color(0xFF361039),
+            containerColor = Color(0xFF336699),
             contentColor = Color(0xFFF5F5F5),
-            disabledContentColor = Color(0XFFe83151)
+            disabledContentColor = Color(0XFFe83151),
+            disabledContainerColor = Color(0XFFe83151)
+           /* backgroundColor = Color(0xFF361039),
+            contentColor = Color(0xFFF5F5F5),
+            disabledContentColor = Color(0XFFe83151)*/
         )
     }
 

@@ -3,10 +3,10 @@ package es.alfred.kvalencia.view.page.section
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.ButtonColors
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.OutlinedButton
-import androidx.compose.material.Text
+import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,18 +22,26 @@ class FrontalesPageMainButtons {
     @Composable
     private fun getBigButtonsColour(): ButtonColors {
         return ButtonDefaults.outlinedButtonColors(
-            backgroundColor = Color(0xFF41521F),
+            containerColor = Color(0xFF336699),
+            contentColor = Color(0xFFF5F5F5),
+            disabledContentColor = Color(0XFFe83151),
+            disabledContainerColor = Color(0XFFe83151)
+            /*backgroundColor = Color(0xFF41521F),
             contentColor = Color(0xFFEFF2EF),
-            disabledContentColor = Color(0xFF41521F)
+            disabledContentColor = Color(0xFF41521F)*/
         )
     }
 
     @Composable
     private fun getSmallButtonsColour(): ButtonColors {
         return ButtonDefaults.outlinedButtonColors(
-            backgroundColor = Color(0xFF41121F),
+            containerColor = Color(0xFF336699),
+            contentColor = Color(0xFFF5F5F5),
+            disabledContentColor = Color(0XFFe83151),
+            disabledContainerColor = Color(0XFFe83151)
+            /*backgroundColor = Color(0xFF41121F),
             contentColor = Color(0xFFEFF2EF),
-            disabledContentColor = Color(0xFF41121F)
+            disabledContentColor = Color(0xFF41121F)*/
         )
     }
 

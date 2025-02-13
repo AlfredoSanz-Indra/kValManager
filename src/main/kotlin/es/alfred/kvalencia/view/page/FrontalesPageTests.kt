@@ -2,9 +2,9 @@ package es.alfred.kvalencia.view.page
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.OutlinedButton
-import androidx.compose.material.Text
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -41,9 +41,10 @@ class FrontalesPageTests {
         val antUseCase: AntUseCase = UseCaseFactory.getAntUseCase()
         val coroutineScope = rememberCoroutineScope()
         val buttonsColours = ButtonDefaults.outlinedButtonColors(
-            backgroundColor = Color(0xFF336699),
+            containerColor = Color(0xFF336699),
             contentColor = Color(0xFFF5F5F5),
-            disabledContentColor = Color(0XFFe83151)
+            disabledContentColor = Color(0XFFe83151),
+            disabledContainerColor = Color(0XFFe83151)
         )
 
         OutlinedButton(modifier = Modifier.width(250.dp),

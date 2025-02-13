@@ -3,8 +3,8 @@ package es.alfred.kvalencia.view
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.darkColors
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -52,7 +52,7 @@ class FrontalesView : IView {
         var theview: Byte by remember { mutableStateOf(0) }
         var curView:Byte by remember { mutableStateOf(theview) }
 
-        MaterialTheme(colors = darkColors(background = Color.Black)) {
+        MaterialTheme(darkColorScheme(background = Color.Black)) {
             Column {
                 Row(
                     Modifier.background(color = Color(0xFFF8F7FF))

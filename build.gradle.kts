@@ -3,12 +3,12 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "1.9.23"
-    id("org.jetbrains.compose") version "1.6.2"
+    alias(libs.plugins.compose)
     kotlin("plugin.serialization") version "1.9.23"
 }
 
 group = "com.alfred"
-version = "1.1.3"
+version = "1.1.4"
 
 repositories {
     mavenCentral()
@@ -18,14 +18,16 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test"))
-    implementation(compose.desktop.currentOs) //windows_x64)
-    implementation("org.jetbrains.skiko:skiko-awt-runtime-windows-x64:0.7.97")
-    implementation("org.jetbrains.skiko:skiko:0.7.97")
-    implementation("org.jetbrains.compose.ui:ui-util-desktop:1.6.2")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
-    implementation("org.slf4j:slf4j-log4j12:1.7.36")
-    implementation("org.jetbrains.compose.material3:material3-desktop:1.6.2")
-    implementation("androidx.collection:collection:1.4.0")
+    implementation(compose.desktop.currentOs)
+    implementation(libs.compose.ui.util.desktop)
+    implementation(libs.compose.material3.desktop)
+    implementation(libs.skiko)
+    implementation(libs.skiko.awt.runtime.windows.x64)
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.androidx.collection)
+
+    //LOGGING
+    implementation(libs.slf4j)
 }
 
 tasks.test {
@@ -54,7 +56,7 @@ compose.desktop {
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "KManager"
-            packageVersion = "1.1.3"
+            packageVersion = "1.1.4"
         }
     }
 }

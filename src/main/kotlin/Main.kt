@@ -1,4 +1,3 @@
-import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -22,7 +21,6 @@ const val actionFrontales: String = "FRONTALES"
  * @author Alfredo Sanz
  * @date Oct 2023
  */
-@Preview
 @Composable
 private fun app(action: String) {
 
@@ -40,7 +38,7 @@ fun main() = application {
     var action by remember { mutableStateOf(actionFrontales) }
 
     Window(onCloseRequest = ::exitApplication,
-        title = "KManager 1.1.3",
+        title = "KManager 1.1.4",
         state = rememberWindowState(width = 850.dp, height = 710.dp)
     ) {
         MenuBar {
