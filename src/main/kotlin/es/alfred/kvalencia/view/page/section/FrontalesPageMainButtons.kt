@@ -1,5 +1,7 @@
 package es.alfred.kvalencia.view.page.section
 
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
@@ -18,32 +20,6 @@ import es.alfred.kvalencia.core.Constants
  * @time 2023
  */
 class FrontalesPageMainButtons {
-
-    @Composable
-    private fun getBigButtonsColour(): ButtonColors {
-        return ButtonDefaults.outlinedButtonColors(
-            containerColor = Color(0xFF336699),
-            contentColor = Color(0xFFF5F5F5),
-            disabledContentColor = Color(0XFFe83151),
-            disabledContainerColor = Color(0XFFe83151)
-            /*backgroundColor = Color(0xFF41521F),
-            contentColor = Color(0xFFEFF2EF),
-            disabledContentColor = Color(0xFF41521F)*/
-        )
-    }
-
-    @Composable
-    private fun getSmallButtonsColour(): ButtonColors {
-        return ButtonDefaults.outlinedButtonColors(
-            containerColor = Color(0xFF336699),
-            contentColor = Color(0xFFF5F5F5),
-            disabledContentColor = Color(0XFFe83151),
-            disabledContainerColor = Color(0XFFe83151)
-            /*backgroundColor = Color(0xFF41121F),
-            contentColor = Color(0xFFEFF2EF),
-            disabledContentColor = Color(0xFF41121F)*/
-        )
-    }
 
     @Composable
     fun createPage(onViewChange: (Byte) -> Unit) {
@@ -68,9 +44,21 @@ class FrontalesPageMainButtons {
 
     @Composable
     private fun buttonGitCommands(onViewChoose: (Byte) -> Unit) {
+        val interactionSource = remember { MutableInteractionSource() }
+        val isPressed by interactionSource.collectIsPressedAsState()
+        val color = if (isPressed) Color(0xFF949601) else Color(0xFF41521F)
+        val borderColor = if (isPressed) Color.Black else Color(0xFF666699)
+
         OutlinedButton(modifier = Modifier.width(200.dp)
             .height(70.dp),
-            colors = getBigButtonsColour(),
+            colors = ButtonDefaults.outlinedButtonColors(
+                containerColor = color,
+                contentColor = Color(0xFFF5F5F5),
+                disabledContentColor = Color(0XFFe83151),
+                disabledContainerColor = Color(0XFFe83151)
+            ),
+            border = ButtonDefaults.outlinedButtonBorder.copy(brush = androidx.compose.ui.graphics.Brush.horizontalGradient(listOf(borderColor, borderColor))),
+            interactionSource = interactionSource,
             onClick = {
                 onViewChoose(Constants.theviewGit)
             }
@@ -81,9 +69,21 @@ class FrontalesPageMainButtons {
 
     @Composable
     private fun buttonNodeCommands(onViewChoose: (Byte) -> Unit) {
+        val interactionSource = remember { MutableInteractionSource() }
+        val isPressed by interactionSource.collectIsPressedAsState()
+        val color = if (isPressed) Color(0xFF949601) else Color(0xFF41521F)
+        val borderColor = if (isPressed) Color.Black else Color(0xFF666699)
+
         OutlinedButton(modifier = Modifier.width(200.dp)
             .height(70.dp),
-            colors = getBigButtonsColour(),
+            colors = ButtonDefaults.outlinedButtonColors(
+                containerColor = color,
+                contentColor = Color(0xFFF5F5F5),
+                disabledContentColor = Color(0XFFe83151),
+                disabledContainerColor = Color(0XFFe83151)
+            ),
+            border = ButtonDefaults.outlinedButtonBorder.copy(brush = androidx.compose.ui.graphics.Brush.horizontalGradient(listOf(borderColor, borderColor))),
+            interactionSource = interactionSource,
             onClick = {
                 onViewChoose(Constants.theviewNode)
             }
@@ -94,8 +94,20 @@ class FrontalesPageMainButtons {
 
     @Composable
     private fun buttonTest(onViewChoose: (Byte) -> Unit) {
+        val interactionSource = remember { MutableInteractionSource() }
+        val isPressed by interactionSource.collectIsPressedAsState()
+        val color = if (isPressed) Color(0xFF949601) else Color(0xFF00021F)
+        val borderColor = if (isPressed) Color.Black else Color(0xFF666699)
+
         OutlinedButton(modifier = Modifier.width(100.dp).height(50.dp),
-            colors = getSmallButtonsColour(),
+            colors = ButtonDefaults.outlinedButtonColors(
+                containerColor = color,
+                contentColor = Color(0xFFF5F5F5),
+                disabledContentColor = Color(0XFFe83151),
+                disabledContainerColor = Color(0XFFe83151)
+            ),
+            border = ButtonDefaults.outlinedButtonBorder.copy(brush = androidx.compose.ui.graphics.Brush.horizontalGradient(listOf(borderColor, borderColor))),
+            interactionSource = interactionSource,
             onClick = {
                 onViewChoose(Constants.theviewTests)
             }

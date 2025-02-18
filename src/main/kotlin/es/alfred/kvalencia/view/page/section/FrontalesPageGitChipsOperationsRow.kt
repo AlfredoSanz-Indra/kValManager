@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -27,42 +26,48 @@ import kotlinx.coroutines.launch
 
 /**
  * @author Alfredo Sanz
- * @time 2023
+ * @time 2025
  */
-class FrontalesPageNodeChipsButtonsRow {
+class FrontalesPageGitChipsOperationsRow {
 
     private val antUseCase: AntUseCase = UseCaseFactory.getAntUseCase()
 
     @Composable
-    fun nodeChipsActionsRow(chipsSelected: MutableMap<String, Boolean>) {
+    fun gitChipsOperationsRow(chipsSelected: MutableMap<String, Boolean>, branchName: String) {
         Row(
             Modifier.background(color = Color.White).width(800.dp),
             horizontalArrangement = Arrangement.Start,
             verticalAlignment = Alignment.CenterVertically
         ) {
             Spacer(Modifier.width(20.dp))
-            nodeActionButtons(chipsSelected)
+            gitOperationsActionButtons(chipsSelected, branchName)
         }
+
     }
 
     @Composable
-    private fun nodeActionButtons(chipsSelected: MutableMap<String, Boolean>) {
-        nodeRunActionButton(chipsSelected)
-
+    fun gitOperationsActionButtons(chipsSelected: MutableMap<String, Boolean>, branchName: String) {
+        var lastText = ""
+        if(branchName.isNotBlank() && branchName.length > 10) {
+            lastText = branchName.trim().substring (branchName.length-9)
+        }
+        
+        gitOperationsActionCheckoutButton(chipsSelected, branchName, lastText)
         Spacer(Modifier.width(20.dp))
-
-        nodeTestActionButton(chipsSelected)
+        
+        gitOperationsActionPushButton(chipsSelected, branchName, lastText)
     }
 
     @Composable
-    private fun nodeRunActionButton(chipsSelected: MutableMap<String, Boolean>) {
+    fun gitOperationsActionCheckoutButton(chipsSelected: MutableMap<String, Boolean>, branchName: String, lastText: String = "") {
         val coroutineScope = rememberCoroutineScope()
         val interactionSource = remember { MutableInteractionSource() }
         val isPressed by interactionSource.collectIsPressedAsState()
-        val color = if (isPressed) Color(0xFF666699) else Color(0xFF361039)
+        val color = if (isPressed) Color(0xFF666699) else Color(0xFF336699)
         val borderColor = if (isPressed) Color.Black else Color(0xFF666699)
 
-        OutlinedButton(modifier = Modifier.width(200.dp),
+        OutlinedButton(
+            modifier = Modifier.width(250.dp),
             colors = ButtonDefaults.outlinedButtonColors(
                 containerColor = color,
                 contentColor = Color(0xFFF5F5F5),
@@ -73,13 +78,13 @@ class FrontalesPageNodeChipsButtonsRow {
             interactionSource = interactionSource,
             onClick = {
                 val chips = chipsSelected.filter { it -> it.value }
-                val canGoon = validateOperation(chips)
+                val canGoon = validateOperation(chips, branchName)
 
                 if(canGoon) {
                     coroutineScope.launch {
                         val defer = async(Dispatchers.IO) {
                             val chipsSelectedList = chips.keys.toList()
-                            antUseCase.nodeRunMicroFList(chipsSelectedList)
+                            antUseCase.gitCheckout(chipsSelectedList, branchName)
                         }
                         defer.await()
                     }
@@ -87,19 +92,20 @@ class FrontalesPageNodeChipsButtonsRow {
             }
         )
         {
-            Text("Node Run projects")
+            Text("Git Checkout ...$lastText")
         }
     }
 
     @Composable
-    private fun nodeTestActionButton(chipsSelected: MutableMap<String, Boolean>) {
+    fun gitOperationsActionPushButton(chipsSelected: MutableMap<String, Boolean>, branchName: String, lastText: String = "") {
         val coroutineScope = rememberCoroutineScope()
         val interactionSource = remember { MutableInteractionSource() }
         val isPressed by interactionSource.collectIsPressedAsState()
-        val color = if (isPressed) Color(0xFF666699) else Color(0xFF361039)
+        val color = if (isPressed) Color(0xFF666699) else Color(0xFF336699)
         val borderColor = if (isPressed) Color.Black else Color(0xFF666699)
-
-        OutlinedButton(modifier = Modifier.width(200.dp),
+        
+        OutlinedButton(
+            modifier = Modifier.width(220.dp),
             colors = ButtonDefaults.outlinedButtonColors(
                 containerColor = color,
                 contentColor = Color(0xFFF5F5F5),
@@ -110,13 +116,12 @@ class FrontalesPageNodeChipsButtonsRow {
             interactionSource = interactionSource,
             onClick = {
                 val chips = chipsSelected.filter { it -> it.value }
-                val canGoon = validateOperation(chips)
+                val canGoon = validateOperation(chips, branchName)
 
                 if(canGoon) {
                     coroutineScope.launch {
                         val defer = async(Dispatchers.IO) {
-                            val chipsSelectedList = chips.keys.toList()
-                            antUseCase.nodeRunTestMicroFList(chipsSelectedList)
+                            antUseCase.gitPush(branchName)
                         }
                         defer.await()
                     }
@@ -124,11 +129,11 @@ class FrontalesPageNodeChipsButtonsRow {
             }
         )
         {
-            Text("Node Test projects")
+            Text("Git Push ...$lastText")
         }
     }
 
-    private fun validateOperation(chips: Map<String, Boolean>): Boolean {
+    private fun validateOperation(chips: Map<String, Boolean>, branchName: String): Boolean {
         var result = true
         if (chips.isEmpty()) {
             println("No hay proyecto seleccionado")
@@ -138,7 +143,10 @@ class FrontalesPageNodeChipsButtonsRow {
             println("Solo se puede seleccionar un proyecto para esta funcion")
             result = false
         }
-
+        if (branchName.isBlank() || branchName.length < 10) {
+            println("Debe especificar un nombre de rama")
+            result = false
+        }
         return result
     }
 }
