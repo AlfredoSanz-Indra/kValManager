@@ -112,7 +112,7 @@ class FrontalesPageMainButtons {
                 onViewChoose(Constants.theviewTests)
             }
         ) {
-            Text("Tests")
+            Text("Mongo")
         }
     }
 }

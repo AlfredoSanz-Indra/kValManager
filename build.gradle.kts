@@ -8,11 +8,12 @@ plugins {
 }
 
 group = "com.alfred"
-version = "1.1.5"
+version = "1.1.6"
 
 repositories {
     mavenCentral()
     maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+    maven("https://maven.google.com/")
     google()
 }
 
@@ -25,6 +26,10 @@ dependencies {
     implementation(libs.skiko.awt.runtime.windows.x64)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.collection)
+
+    //MONGODB
+    implementation("org.mongodb:mongodb-driver-kotlin-coroutine:5.3.0")
+    implementation("org.mongodb:bson-kotlinx:5.3.0")
 
     //LOGGING
     implementation(libs.slf4j)
@@ -56,7 +61,7 @@ compose.desktop {
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "KManager"
-            packageVersion = "1.1.5"
+            packageVersion = "1.1.6"
         }
     }
 }

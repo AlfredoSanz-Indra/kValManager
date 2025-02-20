@@ -21,5 +21,7 @@ interface AntCommands {
 
     fun execAntNodeCommands(antTaskName: String): AntResult;
 
+    suspend fun runMongoServer(): AntResult
+
     suspend fun execTest(input: String): AntResult
 }

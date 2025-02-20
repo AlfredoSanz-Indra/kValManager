@@ -14,7 +14,7 @@ import es.alfred.kvalencia.core.Constants
 import es.alfred.kvalencia.core.resources.TheResources
 import es.alfred.kvalencia.view.page.FrontalesPageGit
 import es.alfred.kvalencia.view.page.FrontalesPageNode
-import es.alfred.kvalencia.view.page.FrontalesPageTests
+import es.alfred.kvalencia.view.page.FrontalesPageMongo
 import es.alfred.kvalencia.view.page.section.FrontalesPageMainButtons
 
 
@@ -27,7 +27,7 @@ class FrontalesView : IView {
     private val frontPageMainButtonsRow: FrontalesPageMainButtons = FrontalesPageMainButtons()
     private val frontPageGit: FrontalesPageGit = FrontalesPageGit()
     private val frontPageNode: FrontalesPageNode = FrontalesPageNode()
-    private val frontPageTests: FrontalesPageTests = FrontalesPageTests()
+    private val frontPageMongo: FrontalesPageMongo = FrontalesPageMongo()
 
     var chipsGitSelected: MutableMap<String, Boolean> = mutableMapOf()
     var chipsNodeSelected: MutableMap<String, Boolean> = mutableMapOf()
@@ -78,7 +78,7 @@ class FrontalesView : IView {
                 }
 
                 if (Constants.theviewTests == theview) {
-                    frontPageTests.createPage()
+                    frontPageMongo.createPage()
                 }
             }
         }

@@ -26,6 +26,8 @@ interface AntUseCase {
 
     suspend fun nodeRunTestMicroFList(microFs: List<String>)
 
+    suspend fun mongoRunServer()
+
     suspend fun coroutineTest(input: String)
 
     suspend fun coroutineTestReturn(input: String): AntResult;

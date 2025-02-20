@@ -80,6 +80,15 @@ class AntCommandsImpl : AntCommands {
         return AntResult("Ant Task Node launched")
     }
 
+    override suspend fun runMongoServer(): AntResult {
+        ProcessBuilder("cmd /C ant run-mongo".split(" "))
+            .redirectOutput(ProcessBuilder.Redirect.INHERIT)
+            .start()
+            .waitFor()
+
+        return AntResult("Ant Task Run-Mongo launched")
+    }
+
     override suspend fun execTest(input: String): AntResult {
 
             for (i in 1..1000000) {

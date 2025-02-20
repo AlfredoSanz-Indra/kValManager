@@ -69,6 +69,11 @@ class AntUseCaseImpl: AntUseCase {
         println("\"executed Node Run for microFrontales ($microFs)")
     }
 
+    override suspend fun mongoRunServer() {
+        val r: AntResult = this.antCommand.runMongoServer()
+        println("\"AntCommand - Mongo - result=${r.result}")
+    }
+
     override suspend fun coroutineTest(input: String) {
         val r: AntResult = this.antCommand.execTest(input)
         println("\"No command - test  result=${r.result}")
