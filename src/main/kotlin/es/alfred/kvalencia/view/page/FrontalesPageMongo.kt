@@ -7,16 +7,15 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import es.alfred.kvalencia.core.di.UseCaseFactory
 import es.alfred.kvalencia.domain.usecaseapi.AntUseCase
+import es.alfred.kvalencia.domain.usecaseapi.MongoOperations
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -43,6 +42,9 @@ class FrontalesPageMongo {
     @Composable
     private fun row01() {
         val antUseCase: AntUseCase = UseCaseFactory.getAntUseCase()
+        val mongoOperations: MongoOperations = UseCaseFactory.getMongoOperations()
+
+        var mongoIsAlive by remember { mutableStateOf(TextFieldValue("Undetermined")) }
 
         val coroutineScope = rememberCoroutineScope()
         val interactionSource = remember { MutableInteractionSource() }
@@ -71,5 +73,50 @@ class FrontalesPageMongo {
         {
             Text("Run Mongo Server")
         }
+
+        Spacer(Modifier.width(20.dp))
+
+        OutlinedButton(modifier = Modifier.width(250.dp),
+            colors = ButtonDefaults.outlinedButtonColors(
+                containerColor = color,
+                contentColor = Color(0xFFF5F5F5),
+                disabledContentColor = Color(0XFFe83151),
+                disabledContainerColor = Color(0XFFe83151)
+            ),
+            border = ButtonDefaults.outlinedButtonBorder.copy(brush = androidx.compose.ui.graphics.Brush.horizontalGradient(listOf(borderColor, borderColor))),
+            interactionSource = interactionSource,
+            onClick = {
+                coroutineScope.launch {
+                    val defer = async(Dispatchers.IO) {
+                        mongoIsAlive = TextFieldValue("Checking ...")
+                        val resp = mongoOperations.isAlive()
+
+                        return@async resp
+                    }
+                    val result = defer.await()
+
+                    mongoIsAlive = if(result.result) {
+                        TextFieldValue("Is Alive")
+                    }
+                    else {
+                        TextFieldValue("is Offline")
+                    }
+                }
+            }
+        )
+        {
+            Text("Test is Alive")
+        }
+
+        Spacer(Modifier.width(20.dp))
+
+        Text(
+            text= mongoIsAlive.text,
+            color = if(mongoIsAlive.text == "is Offline") {
+                        Color.Red
+                    } else {
+                        Color.Black
+                    }
+            )
     }
 }

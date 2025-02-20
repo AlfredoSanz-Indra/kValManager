@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "com.alfred"
-version = "1.1.6"
+version = "1.1.7"
 
 repositories {
     mavenCentral()
@@ -61,7 +61,7 @@ compose.desktop {
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "KManager"
-            packageVersion = "1.1.6"
+            packageVersion = "1.1.7"
         }
     }
 }

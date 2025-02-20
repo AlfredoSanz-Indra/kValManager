@@ -22,33 +22,6 @@ class FrontalesPageGitPullButtonsRow {
 
     private val antUseCase: AntUseCase = UseCaseFactory.getAntUseCase()
 
-    @Composable
-    private fun getGitpullButtonsColour(): ButtonColors {
-        val result = ButtonDefaults.outlinedButtonColors(
-            containerColor = Color(0xFF336699),
-            contentColor = Color(0xFFF5F5F5),
-            disabledContentColor = Color(0XFFe83151),
-            disabledContainerColor = Color(0XFFe83151)
-            /*backgroundColor = Color(0xFF7BB661),
-            contentColor = Color(0xFFF5F5F5),
-            disabledContentColor = Color(0xFF666699))*/
-        )
-        return result
-    }
-
-    @Composable
-    private fun getBranchButtonsColour(): ButtonColors {
-        val result = ButtonDefaults.outlinedButtonColors(
-            containerColor = Color(0xFF336699),
-            contentColor = Color(0xFFF5F5F5),
-            disabledContentColor = Color(0XFFe83151),
-            disabledContainerColor = Color(0XFFe83151)
-            /*backgroundColor = Color(0xFF849601),
-            contentColor = Color(0xFFF5F5F5),
-            disabledContentColor = Color(0xFF666699))*/
-        )
-        return result
-    }
 
     @Composable
     fun gitpullsButtonRow() {
