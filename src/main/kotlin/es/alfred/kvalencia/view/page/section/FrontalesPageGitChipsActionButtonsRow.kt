@@ -1,15 +1,19 @@
 package es.alfred.kvalencia.view.page.section
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.ButtonColors
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.OutlinedButton
-import androidx.compose.material.Text
+import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,25 +34,6 @@ class FrontalesPageGitChipsActionButtonsRow {
     private val antUseCase: AntUseCase = UseCaseFactory.getAntUseCase()
 
     @Composable
-    private fun getGitActionButtonsColour(): ButtonColors {
-       return ButtonDefaults.outlinedButtonColors(
-            backgroundColor = Color(0xFF331099),
-            contentColor = Color(0xFFF5F5F5),
-            disabledContentColor = Color(0XFFe83151)
-       )
-
-    }
-
-    @Composable
-    private fun getGitCheckoutButtonsColour(): ButtonColors {
-        return ButtonDefaults.outlinedButtonColors(
-            backgroundColor = Color(0xFF361039),
-            contentColor = Color(0xFFF5F5F5),
-            disabledContentColor = Color(0XFFe83151)
-        )
-    }
-
-    @Composable
     fun gitChipsActionsRow(chipsSelected: MutableMap<String, Boolean>) {
 
         Row(
@@ -63,62 +48,51 @@ class FrontalesPageGitChipsActionButtonsRow {
 
     @Composable
     private fun gitpullActionButton(chipsSelected: MutableMap<String, Boolean>) {
-
         val coroutineScope = rememberCoroutineScope()
+        val interactionSource = remember { MutableInteractionSource() }
+        val isPressed by interactionSource.collectIsPressedAsState()
+        val color = if (isPressed) Color(0xFF666699) else Color(0xFF336699)
+        val borderColor = if (isPressed) Color.Black else Color(0xFF666699)
 
         OutlinedButton(modifier = Modifier.width(200.dp),
-            colors = getGitActionButtonsColour(),
+            colors = ButtonDefaults.outlinedButtonColors(
+                containerColor = color,
+                contentColor = Color(0xFFF5F5F5),
+                disabledContentColor = Color(0XFFe83151),
+                disabledContainerColor = Color(0XFFe83151)
+            ),
+            border = ButtonDefaults.outlinedButtonBorder.copy(brush = androidx.compose.ui.graphics.Brush.horizontalGradient(listOf(borderColor, borderColor))),
+            interactionSource = interactionSource,
             onClick = {
-                coroutineScope.launch {
-                    val defer = async(Dispatchers.IO) {
-                        val chips = chipsSelected.filter { it -> it.value }
-                        val chipsSelectedList = chips.keys.toList()
-                        antUseCase.gitPullList(chipsSelectedList)
+                val chips = chipsSelected.filter { it -> it.value }
+                val canGoon = validateOperation(chips)
+
+                if(canGoon) {
+                    coroutineScope.launch {
+                        val defer = async(Dispatchers.IO) {
+                            val chipsSelectedList = chips.keys.toList()
+                            antUseCase.gitPullList(chipsSelectedList)
+                        }
+                        defer.await()
                     }
-                    defer.await()
                 }
             }
         )
         {
             Text("Git pull projects")
         }
+    }
 
-        Spacer(Modifier.width(20.dp))
-
-        OutlinedButton(modifier = Modifier.width(220.dp),
-            colors = getGitCheckoutButtonsColour(),
-            onClick = {
-                coroutineScope.launch {
-                    val defer = async(Dispatchers.IO) {
-                        val chips = chipsSelected.filter { it -> it.value }
-                        val chipsSelectedList = chips.keys.toList()
-                        antUseCase.gitCheckout(chipsSelectedList, "apis-integration")
-                    }
-                    defer.await()
-                }
-            }
-        )
-        {
-            Text("Git Checkout integration")
+    private fun validateOperation(chips: Map<String, Boolean>): Boolean {
+        var result = true
+        if (chips.isEmpty()) {
+            println("No hay proyecto seleccionado")
+            result = false
         }
-
-        Spacer(Modifier.width(20.dp))
-
-        OutlinedButton(modifier = Modifier.width(220.dp),
-            colors = getGitCheckoutButtonsColour(),
-            onClick = {
-                coroutineScope.launch {
-                    val defer = async(Dispatchers.IO) {
-                        val chips = chipsSelected.filter { it -> it.value }
-                        val chipsSelectedList = chips.keys.toList()
-                        antUseCase.gitCheckout(chipsSelectedList, "develop")
-                    }
-                    defer.await()
-                }
-            }
-        )
-        {
-            Text("Git Checkout Develop")
+        if (chips.size > 1) {
+            println("Solo se puede seleccionar un proyecto para esta funcion")
+            result = false
         }
+        return result
     }
 }

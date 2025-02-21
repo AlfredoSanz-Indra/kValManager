@@ -2,7 +2,7 @@ package es.alfred.kvalencia.view.page.section
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Check
@@ -44,7 +44,7 @@ class FrontalesPageGitChipsRow {
         }//for
     }
 
-    @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
+    @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class)
     @Composable
     private fun gitChip(item: Project, chipsSelected: MutableMap<String, Boolean>) {
 

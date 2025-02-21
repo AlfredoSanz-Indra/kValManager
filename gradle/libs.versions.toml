@@ -1,0 +1,26 @@
+[versions]
+
+compose = "1.7.3"
+compose-ui = "1.6.2"
+compose-material3-desktop = "1.6.2"
+kotlinx-coroutines = "1.10.1"
+kotlinx-serialization = "1.6.3"
+androidx-collection = "1.4.5"
+androidx-lifecycle = "2.8.7"
+skiko = "0.7.97"
+slf4j = "1.7.36"
+
+
+[libraries]
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+skiko = { module = "org.jetbrains.skiko:skiko", version.ref = "skiko" }
+skiko-awt-runtime-windows-x64 = { module = "org.jetbrains.skiko:skiko-awt-runtime-windows-x64", version.ref = "skiko" }
+
+compose-ui-util-desktop = { module = "org.jetbrains.compose.ui:ui-util-desktop", version.ref = "compose-ui" }
+compose-material3-desktop = { module = "org.jetbrains.compose.material3:material3-desktop", version.ref = "compose-material3-desktop" }
+slf4j = { module = "org.slf4j:slf4j-log4j12", version.ref = "slf4j" }
+androidx-collection = { module = "androidx.collection:collection", version.ref = "androidx-collection" }
+
+
+[plugins]
+compose = { id = "org.jetbrains.compose", version.ref = "compose" }

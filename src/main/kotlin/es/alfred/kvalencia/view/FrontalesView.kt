@@ -3,8 +3,8 @@ package es.alfred.kvalencia.view
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.darkColors
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -14,7 +14,7 @@ import es.alfred.kvalencia.core.Constants
 import es.alfred.kvalencia.core.resources.TheResources
 import es.alfred.kvalencia.view.page.FrontalesPageGit
 import es.alfred.kvalencia.view.page.FrontalesPageNode
-import es.alfred.kvalencia.view.page.FrontalesPageTests
+import es.alfred.kvalencia.view.page.FrontalesPageMongo
 import es.alfred.kvalencia.view.page.section.FrontalesPageMainButtons
 
 
@@ -27,7 +27,7 @@ class FrontalesView : IView {
     private val frontPageMainButtonsRow: FrontalesPageMainButtons = FrontalesPageMainButtons()
     private val frontPageGit: FrontalesPageGit = FrontalesPageGit()
     private val frontPageNode: FrontalesPageNode = FrontalesPageNode()
-    private val frontPageTests: FrontalesPageTests = FrontalesPageTests()
+    private val frontPageMongo: FrontalesPageMongo = FrontalesPageMongo()
 
     var chipsGitSelected: MutableMap<String, Boolean> = mutableMapOf()
     var chipsNodeSelected: MutableMap<String, Boolean> = mutableMapOf()
@@ -52,7 +52,7 @@ class FrontalesView : IView {
         var theview: Byte by remember { mutableStateOf(0) }
         var curView:Byte by remember { mutableStateOf(theview) }
 
-        MaterialTheme(colors = darkColors(background = Color.Black)) {
+        MaterialTheme(darkColorScheme(background = Color.Black)) {
             Column {
                 Row(
                     Modifier.background(color = Color(0xFFF8F7FF))
@@ -78,7 +78,7 @@ class FrontalesView : IView {
                 }
 
                 if (Constants.theviewTests == theview) {
-                    frontPageTests.createPage()
+                    frontPageMongo.createPage()
                 }
             }
         }

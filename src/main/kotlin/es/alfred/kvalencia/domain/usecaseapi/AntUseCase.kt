@@ -16,6 +16,8 @@ interface AntUseCase {
 
     suspend fun gitPullList(microFs: List<String>);
 
+    suspend fun gitPush(destBranch: String)
+
     suspend fun nodeRunMicroF(microF: String)
 
     suspend fun nodeRunMicroFList(microFs: List<String>)
@@ -23,6 +25,10 @@ interface AntUseCase {
     suspend fun nodeRunTestMicroF(microF: String)
 
     suspend fun nodeRunTestMicroFList(microFs: List<String>)
+
+    suspend fun mongoRunServer()
+
+    suspend fun openMongoShell()
 
     suspend fun coroutineTest(input: String)
 

@@ -51,6 +51,11 @@ class AntUseCaseImpl: AntUseCase {
         println("\"executed Node Run for microFrontales ($microFs)")
     }
 
+    override suspend fun gitPush(destBranch: String) {
+        var r: AntResult = this.antCommand.execAntGitCommandSmartPush(destBranch)
+        println("\"AntCommand - git-push $destBranch - result=${r.result}")
+    }
+
     override suspend fun nodeRunTestMicroF(microF: String) {
         var r: AntResult = this.antCommand.execAntNodeCommandsSmart("run-test", microF)
         println("\"AntCommand - nodeRun $microF - result=${r.result}")
@@ -64,9 +69,19 @@ class AntUseCaseImpl: AntUseCase {
         println("\"executed Node Run for microFrontales ($microFs)")
     }
 
+    override suspend fun mongoRunServer() {
+        val r: AntResult = this.antCommand.runMongoServer()
+        println("\"AntCommand - Mongo - result=${r.result}")
+    }
+
     override suspend fun coroutineTest(input: String) {
         val r: AntResult = this.antCommand.execTest(input)
         println("\"No command - test  result=${r.result}")
+    }
+
+    override suspend fun openMongoShell() {
+        val r: AntResult = this.antCommand.openMongoShell()
+        println("\"AntCommand - Mongosh - result=${r.result}")
     }
 
     override suspend fun coroutineTestReturn(input: String): AntResult {

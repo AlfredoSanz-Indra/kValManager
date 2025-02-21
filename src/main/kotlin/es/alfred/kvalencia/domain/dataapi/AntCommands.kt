@@ -15,9 +15,15 @@ interface AntCommands {
 
     fun execAntGitCommand(antTaskName: String): AntResult;
 
+    fun execAntGitCommandSmartPush(destBranch: String): AntResult
+
     fun execAntNodeCommandsSmart(antTaskName: String,  microID: String): AntResult
 
     fun execAntNodeCommands(antTaskName: String): AntResult;
+
+    suspend fun runMongoServer(): AntResult
+
+    suspend fun openMongoShell(): AntResult
 
     suspend fun execTest(input: String): AntResult
 }
