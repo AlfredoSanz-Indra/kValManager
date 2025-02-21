@@ -79,6 +79,11 @@ class AntUseCaseImpl: AntUseCase {
         println("\"No command - test  result=${r.result}")
     }
 
+    override suspend fun openMongoShell() {
+        val r: AntResult = this.antCommand.openMongoShell()
+        println("\"AntCommand - Mongosh - result=${r.result}")
+    }
+
     override suspend fun coroutineTestReturn(input: String): AntResult {
         val r: AntResult = this.antCommand.execTest(input)
         println("\"No command - test  result=${r.result}")

@@ -28,6 +28,8 @@ interface AntUseCase {
 
     suspend fun mongoRunServer()
 
+    suspend fun openMongoShell()
+
     suspend fun coroutineTest(input: String)
 
     suspend fun coroutineTestReturn(input: String): AntResult;

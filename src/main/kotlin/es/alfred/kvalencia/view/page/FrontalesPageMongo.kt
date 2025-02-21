@@ -37,6 +37,15 @@ class FrontalesPageMongo {
         ) {
             row01()
         }
+
+        Spacer(Modifier.height(20.dp))
+
+        Row(Modifier.background(color = Color.White).width(800.dp),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            row02()
+        }
     }
 
     @Composable
@@ -118,5 +127,43 @@ class FrontalesPageMongo {
                         Color.Black
                     }
             )
+    }
+
+    @Composable
+    private fun row02() {
+        val antUseCase: AntUseCase = UseCaseFactory.getAntUseCase()
+
+        val coroutineScope = rememberCoroutineScope()
+        val interactionSource = remember { MutableInteractionSource() }
+        val isPressed by interactionSource.collectIsPressedAsState()
+        val color = if (isPressed) Color(0xFF949601) else Color(0xFF849601)
+        val borderColor = if (isPressed) Color.Black else Color(0xFF666699)
+
+        OutlinedButton(
+            modifier = Modifier.width(250.dp),
+            colors = ButtonDefaults.outlinedButtonColors(
+                containerColor = color,
+                contentColor = Color(0xFFF5F5F5),
+                disabledContentColor = Color(0XFFe83151),
+                disabledContainerColor = Color(0XFFe83151)
+            ),
+            border = ButtonDefaults.outlinedButtonBorder.copy(
+                brush = androidx.compose.ui.graphics.Brush.horizontalGradient(
+                    listOf(borderColor, borderColor)
+                )
+            ),
+            interactionSource = interactionSource,
+            onClick = {
+                coroutineScope.launch {
+                    val defer = async(Dispatchers.IO) {
+                        antUseCase.openMongoShell()
+                    }
+                    defer.await()
+                }
+            }
+        )
+        {
+            Text("Open Mongo Shell")
+        }
     }
 }

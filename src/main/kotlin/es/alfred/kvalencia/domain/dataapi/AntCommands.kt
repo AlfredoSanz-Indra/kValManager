@@ -23,5 +23,7 @@ interface AntCommands {
 
     suspend fun runMongoServer(): AntResult
 
+    suspend fun openMongoShell(): AntResult
+
     suspend fun execTest(input: String): AntResult
 }
